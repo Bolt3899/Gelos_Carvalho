@@ -1,21 +1,6 @@
 # Gelos_Carvalho
-# GELOS CARVALHO — Guia de Imagens
-# Desenvolvido por Arthur Carvalho de Souza
 
-=======================================================
-ESTRUTURA DO PROJETO
-=======================================================
-gelos-carvalho/
-├── index.html      (Página Inicial)
-├── sobre.html      (Página Sobre Nós)
-├── servicos.html   (Página Serviços e Produtos)
-├── galeria.html    (Página Galeria)
-├── contato.html    (Página Contato)
-├── css/
-│   └── style.css   (Estilo único de todas as páginas)
-├── img/
-│   └── [todas as imagens aqui]
-└── LEIA-ME.txt     (Este arquivo)
+Desenvolvido por Arthur Carvalho de Souza
 
 =======================================================
 Aluno: Arthur Carvalho de Souza
