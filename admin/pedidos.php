@@ -6,7 +6,7 @@ $filtro=trim(is_string($_GET['status']??null)?$_GET['status']:'');
 $busca=trim(is_string($_GET['q']??null)?$_GET['q']:'');
 $estados=['Pendente','Confirmado','Em preparação','Entregue','Cancelado']; $where=[]; $params=[];
 if($filtro!=='' && in_array($filtro,$estados,true)){$where[]='status=:status';$params[':status']=$filtro;}
-if($busca!==''){$where[]='(nome LIKE :busca OR telefone LIKE :busca OR email LIKE :busca OR CAST(id AS CHAR)=:id)';$params[':busca']='%'.addcslashes($busca,'%_\\').'%';$params[':id']=$busca;}
+if($busca!==''){$where[]='(nome LIKE :busca_nome OR telefone LIKE :busca_telefone OR email LIKE :busca_email OR CAST(id AS CHAR)=:id)';$params[':busca']='%'.addcslashes($busca,'%_\\').'%';$params[':id']=$busca;}
 $sql='SELECT * FROM pedidos'.($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY criado_em DESC LIMIT 200';
 $stmt=$pdo->prepare($sql);$stmt->execute($params);$pedidos=$stmt->fetchAll();
 $flash=obterMensagem();$tipos=['pacote-5'=>'Pacote de R$ 5,00','pacote-7'=>'Pacote de R$ 7,00','ambos'=>'Ambos os tamanhos','atacado'=>'Atacado','duvida'=>'Dúvida / informação'];
