@@ -2,6 +2,10 @@
 
 Sistema web da Gelos Carvalho, empresa de fabricação e venda de gelo em Serra do Ramalho — BA. O projeto preserva as páginas institucionais e acrescenta backend PHP para registrar solicitações e gerenciar o atendimento.
 
+## Documentação do projeto
+
+A documentação técnica completa, incluindo requisitos funcionais e não funcionais, casos de uso, regras de negócio, modelo de dados, segurança, instalação e plano de testes, está em [DOCUMENTACAO.md](DOCUMENTACAO.md).
+
 ## Funcionalidades
 
 ### Área pública
