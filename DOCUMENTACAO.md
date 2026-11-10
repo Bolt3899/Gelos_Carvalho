@@ -780,9 +780,52 @@ O modelo relacional é composto pelas seguintes relações:
 - **PEDIDOS** (`id`, nome, telefone, email, tipo_pedido, quantidade, mensagem, status, criado_em, atualizado_em)
 - **PEDIDO_HISTORICO** (`id`, pedido_id, administrador_id, status_anterior, status_novo, alterado_em)
 
-As chaves primárias são `administradores.id`, `pedidos.id` e `pedido_historico.id`.
+As chaves primárias são `administradores.id`, `pedidos.id` e `pedido_historico.id`. Na tabela `pedido_historico`, o campo `pedido_id` referencia `pedidos.id`, enquanto `administrador_id` referencia `administradores.id`. Os campos `usuario` e `email` da tabela `administradores` possuem restrições de unicidade.
 
-Na tabela `pedido_historico`, o campo `pedido_id` referencia `pedidos.id`, enquanto `administrador_id` referencia `administradores.id`. Os campos `usuario` e `email` da tabela `administradores` possuem restrições de unicidade.
+A Figura 3 apresenta o esquema relacional do banco de dados. Cada bloco representa uma tabela e lista seus atributos, tipos principais e restrições. A indicação **PK** identifica a chave primária, **FK** identifica uma chave estrangeira e **UK** representa uma restrição de unicidade. As ligações representam as referências entre as tabelas.
+
+```mermaid
+erDiagram
+    ADMINISTRADORES {
+        INT_UNS id PK
+        VARCHAR_120 nome
+        VARCHAR_50 usuario UK
+        VARCHAR_190 email UK
+        VARCHAR_255 senha_hash
+        TINYINT_1 ativo
+        TIMESTAMP criado_em
+        DATETIME ultimo_acesso
+    }
+
+    PEDIDOS {
+        INT_UNS id PK
+        VARCHAR_120 nome
+        VARCHAR_30 telefone
+        VARCHAR_190 email
+        ENUM tipo_pedido
+        INT_UNS quantidade
+        TEXT mensagem
+        ENUM status
+        TIMESTAMP criado_em
+        TIMESTAMP atualizado_em
+    }
+
+    PEDIDO_HISTORICO {
+        INT_UNS id PK
+        INT_UNS pedido_id FK
+        INT_UNS administrador_id FK
+        ENUM status_anterior
+        ENUM status_novo
+        TIMESTAMP alterado_em
+    }
+
+    PEDIDOS ||--o{ PEDIDO_HISTORICO : "pedido_id"
+    ADMINISTRADORES o|--o{ PEDIDO_HISTORICO : "administrador_id"
+```
+
+**Figura 3 — Modelo relacional do banco de dados do Gelos Carvalho.**
+
+No relacionamento entre `PEDIDOS` e `PEDIDO_HISTORICO`, um pedido pode possuir nenhum ou vários registros de histórico, enquanto cada registro de histórico pertence a exatamente um pedido. No relacionamento entre `ADMINISTRADORES` e `PEDIDO_HISTORICO`, uma conta pode estar associada a nenhum ou vários registros, e cada registro pode estar associado a zero ou um administrador, pois a chave estrangeira `administrador_id` aceita valor nulo.
 
 ## 4.4 Integridade e normalização
 
