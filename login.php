@@ -9,8 +9,8 @@ if (($_SERVER['REQUEST_METHOD']??'')==='POST') {
     if (!csrfValido()) $erro='Sua sessão expirou. Atualize a página e tente novamente.';
     elseif ($identificacao==='' || $senha==='') $erro='Informe usuário/e-mail e senha.';
     else try {
-        $stmt=conectarBanco()->prepare('SELECT id,nome,senha_hash,ativo FROM administradores WHERE usuario=:login OR email=:login LIMIT 1');
-        $stmt->execute([':login'=>$identificacao]); $conta=$stmt->fetch();
+        $stmt=conectarBanco()->prepare('SELECT id,nome,senha_hash,ativo FROM administradores WHERE usuario=:usuario OR email=:email LIMIT 1');
+        $stmt->execute([':usuario'=>$identificacao, ':email'=>$identificacao]); $conta=$stmt->fetch();
         if ($conta && (int)$conta['ativo']===1 && password_verify($senha,$conta['senha_hash'])) {
             session_regenerate_id(true);
             $_SESSION['administrador_id']=(int)$conta['id'];
